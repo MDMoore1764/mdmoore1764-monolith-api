@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build and Push Docker Image to Docker.IO
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: mdmoore1764-monolith-api
+  IMAGE_NAME: monolith-api
 
 jobs:
   build-and-push:

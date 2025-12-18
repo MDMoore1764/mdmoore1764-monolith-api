@@ -4,6 +4,7 @@ FROM node:25-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
+COPY .env.production ./.env
 RUN npm ci
 
 COPY tsconfig.json ./
@@ -16,9 +17,9 @@ FROM node:25-alpine AS production
 
 WORKDIR /app
 
-ENV NODE_ENV=production
-
 COPY package*.json ./
+COPY .env.production ./.env
+
 RUN npm ci --only=production && npm cache clean --force
 
 COPY --from=builder /app/dist ./dist
@@ -28,6 +29,6 @@ RUN addgroup -g 1001 -S nodejs && \
 
 USER nodejs
 
-EXPOSE 3000
+EXPOSE 443
 
 CMD ["node", "dist/server.js"]
